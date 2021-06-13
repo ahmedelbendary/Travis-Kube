@@ -27,5 +27,5 @@ script:
 
 after_success:
 - ssh -i ./deploy_key ${user}@${IPADDR} ls -lha /home/ubuntu/.ssh
-- ssh -i ./deploy_key ${user}@${IPADDR} "kubectl set image deployment/flask-travis flask-travis=${IMGNAME} --record ; kubectl delete pods -l app=flask-travis"
+- ssh -i ./deploy_key ${user}@${IPADDR} "kubectl set image deployment.v1.apps/flask-travis  '*=${IMGNAME}' --record=true"
 
