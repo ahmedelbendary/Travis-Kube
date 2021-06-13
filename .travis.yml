@@ -4,7 +4,7 @@ arch:
 language: generic
 
 env:
-- IMGNAME=ahmedbendo/slim-buster:flask-v1
+- IMGNAME=ahmedbendo/slim-buster:flask-v2
 
 services:
 - docker
