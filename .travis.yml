@@ -4,7 +4,8 @@ arch:
 language: generic
 
 env:
-- IMGNAME=ahmedbendo/slim-buster:flask
+- IMGNAME=ahmedbendo/slim-buster:flask-v1
+- OLDIMGNAME=ahmedbendo/slim-buster:flask
 
 
 services:
@@ -28,5 +29,5 @@ script:
 
 after_success:
 - ssh -i ./deploy_key ${user}@${IPADDR} ls -lha /home/ubuntu/.ssh
-- ssh -i ./deploy_key ${user}@${IPADDR} "cd flask; kubectl apply -f flask-travis-deployment.yaml ; kubectl apply -f flask-travis-service.yaml ; kubectl delete pods -l app=flask-travis"
+- ssh -i ./deploy_key ${user}@${IPADDR} "kubectl set image deployment/flask-travis ${OLDIMGNAME}=${IMGNAME} --record ; kubectl delete pods -l app=flask-travis"
 
