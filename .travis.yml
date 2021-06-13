@@ -28,5 +28,5 @@ script:
 
 after_success:
 - ssh -i ./deploy_key ${user}@${IPADDR} ls -lha /home/ubuntu/.ssh
-- ssh -i ./deploy_key ${user}@${IPADDR} "docker rmi --force $(docker images ${IMGNAME} -q); kubectl create deployment  flask-travis  --image=${IMGNAME} --replicas=5 && kubectl expose deployment flask-travis --name=flask-travis --type=NodePort --port=5000 --target-port=5000"
+- ssh -i ./deploy_key ${user}@${IPADDR} "kubectl apply -f flask-travis-deployment.yaml && kubectl apply -f flask-travis-service.yaml"
 
