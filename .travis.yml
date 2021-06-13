@@ -28,5 +28,5 @@ script:
 
 after_success:
 - ssh -i ./deploy_key ${user}@${IPADDR} ls -lha /home/ubuntu/.ssh
-- ssh -i ./deploy_key ${user}@${IPADDR} "kubectl apply -f flask-travis-deployment.yaml && kubectl apply -f flask-travis-service.yaml"
+- ssh -i ./deploy_key ${user}@${IPADDR} "cd flask; kubectl apply -f flask-travis-deployment.yaml && kubectl apply -f flask-travis-service.yaml"
 
