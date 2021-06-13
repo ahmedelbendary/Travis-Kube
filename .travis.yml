@@ -1,0 +1,32 @@
+arch:
+- amd64
+
+language: generic
+
+env:
+- IMGNAME=ahmedbendo/slim-buster:flask
+
+
+services:
+- docker
+
+before_install:
+- openssl aes-256-cbc -K $encrypted_dfdcfd5172af_key -iv $encrypted_dfdcfd5172af_iv
+  -in deploy_key.enc -out ./deploy_key -d
+- eval "$(ssh-agent -s)"
+- chmod 600 ./deploy_key
+- echo -e "Host ${IPADDR}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+- ssh-add ./deploy_key
+- ssh -i ./deploy_key ${user}@${IPADDR} pwd
+- docker image build -t ${IMGNAME} .
+- docker login -u ${DHUB_USERNAME} -p ${DHUB_PASS}
+- docker push ${IMGNAME}
+
+script:
+- dig +short myip.opendns.com @resolver1.opendns.com
+
+
+after_success:
+- ssh -i ./deploy_key ${user}@${IPADDR} ls -lha /home/ubuntu/.ssh
+- ssh -i ./deploy_key ${user}@${IPADDR} "docker rmi --force ${IMGNAME}; kubectl create deployment  flask-travis  --image=${IMGNAME} --replicas=5 && kubectl expose deployment flask-travis --name=flask-travis --type=NodePort --port=5000 --target-port=5000"
+
