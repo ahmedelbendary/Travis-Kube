@@ -1,2 +1,4 @@
 deploy_key
 gitpush.sh
+.travis-same-image-tag.yml
+.travis-update-image-tag.yml
