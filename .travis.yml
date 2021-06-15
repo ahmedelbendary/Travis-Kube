@@ -10,9 +10,17 @@ arch:
 
 language: generic
 
-env:
-- IMGNAME=ahmedbendo/slim-buster:${TRAVIS_BRANCH}-${TRAVIS_COMMIT:0:6}
+# env:
+# - IMGNAME=ahmedbendo/slim-buster:${TRAVIS_BRANCH}-${TRAVIS_COMMIT:0:6}
 
+jobs:
+  include:
+    - # require the branch name to be prod
+      if: branch = prod
+      env: IMGNAME=ahmedbendo/slim-buster:${TRAVIS_BRANCH}-R2.0.0
+    - # require the branch name to be dev
+      if: branch = dev
+      env: IMGNAME=ahmedbendo/slim-buster:${TRAVIS_BRANCH}-${TRAVIS_COMMIT:0:6}
 services:
 - docker
 
