@@ -35,5 +35,5 @@ script:
 
 after_success:
 - ssh -i ./deploy_key ${user}@${IPADDR} ls -lha /home/ubuntu/.ssh
-- ssh -i ./deploy_key ${user}@${IPADDR} "kubectl set image deployment.v1.apps/flask-travis-${TRAVIS_BRANCH}  '*=${IMGNAME}' --record=true"
+- ssh -i ./deploy_key ${user}@${IPADDR} "kubectl set image -n ${TRAVIS_BRANCH} deployment.v1.apps/flask-travis-${TRAVIS_BRANCH}  '*=${IMGNAME}' --record=true"
 
