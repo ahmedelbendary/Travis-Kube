@@ -1,10 +1,17 @@
+notifications:
+  email:
+    recipients:
+      - ahmed.elbendary@ocucon.com
+  on_success: always # default: change
+  on_failure: always # default: always
+
 arch:
 - amd64
 
 language: generic
 
 env:
-- IMGNAME=ahmedbendo/slim-buster:flask-v6
+- IMGNAME=ahmedbendo/slim-buster:dev-2254c11
 
 services:
 - docker
@@ -17,6 +24,7 @@ before_install:
 - echo -e "Host ${IPADDR}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - ssh-add ./deploy_key
 - ssh -i ./deploy_key ${user}@${IPADDR} pwd
+- echo my github/travis commit ${TRAVIS_COMMIT}
 - docker image build -t ${IMGNAME} .
 - docker login -u ${DHUB_USERNAME} -p ${DHUB_PASS}
 - docker push ${IMGNAME}
