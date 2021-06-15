@@ -11,7 +11,7 @@ arch:
 language: generic
 
 env:
-- IMGNAME=ahmedbendo/slim-buster:dev-${TRAVIS_COMMIT:0:6}
+- IMGNAME=ahmedbendo/slim-buster:${TRAVIS_BRANCH}-${TRAVIS_COMMIT:0:6}
 
 services:
 - docker
@@ -35,5 +35,5 @@ script:
 
 after_success:
 - ssh -i ./deploy_key ${user}@${IPADDR} ls -lha /home/ubuntu/.ssh
-- ssh -i ./deploy_key ${user}@${IPADDR} "kubectl set image deployment.v1.apps/flask-travis  '*=${IMGNAME}' --record=true"
+- ssh -i ./deploy_key ${user}@${IPADDR} "kubectl set image deployment.v1.apps/flask-travis-${TRAVIS_BRANCH}  '*=${IMGNAME}' --record=true"
 
