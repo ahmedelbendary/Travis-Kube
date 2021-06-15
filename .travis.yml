@@ -11,7 +11,7 @@ arch:
 language: generic
 
 env:
-- IMGNAME=ahmedbendo/slim-buster:dev-2254c11
+- IMGNAME=ahmedbendo/slim-buster:dev-${TRAVIS_COMMIT:1:7}
 
 services:
 - docker
