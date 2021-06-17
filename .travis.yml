@@ -18,8 +18,8 @@ jobs:
   include:
     - # require the branch name to be prod /release/i
       if: branch =~ ^release/v1.0.0$
-      env: IMGNAME=ahmedbendo/slim-buster:prod-${TRAVIS_BRANCH}
-      env: ns= prod
+      env: IMGNAME=ahmedbendo/slim-buster:prod-${TRAVIS_BRANCH} ns=prod
+      
     - # require the branch name to be dev
       if: branch =~ /feature|hotfix/i
       env: IMGNAME=ahmedbendo/slim-buster:dev-${TRAVIS_COMMIT:0:6}
