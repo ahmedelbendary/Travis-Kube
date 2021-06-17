@@ -17,7 +17,7 @@ language: generic
 jobs:
   include:
     - # require the branch name to be prod /release/i
-      if: branch =~ ^release$
+      if: branch =~ ^release/v1.0.0$
       env: IMGNAME=ahmedbendo/slim-buster:prod-${TRAVIS_BRANCH}
       env: ns= prod
     - # require the branch name to be dev
