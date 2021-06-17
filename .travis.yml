@@ -21,7 +21,7 @@ jobs:
       env: IMGNAME=ahmedbendo/slim-buster:prod-${TRAVIS_BRANCH} ns=prod
       
     - # require the branch name to be dev
-      if: branch =~ /feature|hotfix/i
+      if: branch =~ /feature|hotfix/
       env: IMGNAME=ahmedbendo/slim-buster:dev-${TRAVIS_COMMIT:0:6} ns=dev
 
 
