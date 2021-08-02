@@ -38,9 +38,9 @@ before_install:
 - ssh -i ./deploy_key ${user}@${IPADDR} pwd
 - echo my github/travis commit ${TRAVIS_COMMIT}
 - echo ${ns} ${IMGNAME}
-# - docker image build -t ${IMGNAME} .
-# - docker login -u ${DHUB_USERNAME} -p ${DHUB_PASS}
-# - docker push ${IMGNAME}
+- docker image build -t ${IMGNAME} .
+- docker login -u ${DHUB_USERNAME} -p ${DHUB_PASS}
+- docker push ${IMGNAME}
 
 script:
 - dig +short myip.opendns.com @resolver1.opendns.com
@@ -48,5 +48,5 @@ script:
 
 after_success:
 - ssh -i ./deploy_key ${user}@${IPADDR} ls -lha /home/ubuntu/.ssh
-#- ssh -i ./deploy_key ${user}@${IPADDR} "kubectl set image -n ${ns} deployment.v1.apps/flask-travis-${ns}  '*=${IMGNAME}' --record=true"
+- ssh -i ./deploy_key ${user}@${IPADDR} "kubectl set image -n ${ns} deployment.v1.apps/flask-travis-${ns}  '*=${IMGNAME}' --record=true"
 

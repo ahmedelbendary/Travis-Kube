@@ -3,4 +3,4 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello, From AhmedElbendary/Travis account !!\n R4.0.0-prod  Deploy on kubernetes cluster prod namespace'  
+    return 'Hello, From AhmedElbendary/Travis account !!\n R1.1.1-prod  Deploy on kubernetes cluster prod namespace'  
